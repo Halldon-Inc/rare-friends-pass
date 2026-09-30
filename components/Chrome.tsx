@@ -10,7 +10,7 @@ export function Nav() {
         </Link>
         <div className="links">
           <a href="/#how" className="hide-sm">How it works</a>
-          <a href="/#erc">ERC-8426</a>
+          <a href="/#erc" className="hide-xs">ERC-8426</a>
           <a href="https://rarefriends.com" target="_blank" rel="noreferrer">rarefriends.com</a>
         </div>
       </nav>

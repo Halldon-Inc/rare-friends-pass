@@ -1,6 +1,6 @@
 import { del, list, put } from "@vercel/blob";
 
-// Tiny key store on Vercel Blob. Every fact lives in a blob PATHNAME, (bodies are a single byte: Blob refuses an empty one), so reads are `list` calls
+// Tiny key store on Vercel Blob. Every fact lives in a blob PATHNAME (bodies are one byte: Blob refuses an empty one), so reads are `list` calls
 // against the store's index and never go through the CDN cache that serves blob bodies:
 //   reg/<serial>/<device>/<pushToken>   an Apple device registered for a pass
 //   dev/<device>/<serial>               the reverse index Apple asks for
