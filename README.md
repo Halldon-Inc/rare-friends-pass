@@ -28,6 +28,8 @@ GET /wallet-pass/eip155/4663/<contract>/<tokenId>/challenge?address=<owner>
 
 Without proof it answers `401 proof_required`. With an ERC-4361 challenge signed by the current owner (`X-Wallet-Pass-Proof`, base64url message + `X-Wallet-Pass-Signature`) it returns `{ formats: { apple, google }, updatedAt }`. Pass links are HMAC capabilities bound to (Friend, current owner), checked against a fresh `ownerOf` read on every use, so a sale kills every link the previous owner held.
 
+The standard now has an open-source SDK (MIT, npm `@erc8426/*`): [huntclubhero/erc8426-sdk](https://github.com/huntclubhero/erc8426-sdk). This site predates it and runs its own resolver on the same protocol. A future Rare Friends contract or registry that adds `passURI` can be checked with `npx @erc8426/conformance`, and wallets or marketplaces can offer Add to Wallet for any Friend with `@erc8426/client`.
+
 ## Stack
 
 Next.js 15 on Vercel, viem, passkit-generator (Apple), Google Wallet REST API (generic class), Vercel Blob (device registrations), Vercel Cron (every 10 minutes, pushes only when a number moved about 2% or a balance changed).
