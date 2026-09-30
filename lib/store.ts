@@ -1,6 +1,6 @@
 import { del, list, put } from "@vercel/blob";
 
-// Tiny key store on Vercel Blob. Every fact lives in a blob PATHNAME (bodies are empty), so reads are `list` calls
+// Tiny key store on Vercel Blob. Every fact lives in a blob PATHNAME, (bodies are a single byte: Blob refuses an empty one), so reads are `list` calls
 // against the store's index and never go through the CDN cache that serves blob bodies:
 //   reg/<serial>/<device>/<pushToken>   an Apple device registered for a pass
 //   dev/<device>/<serial>               the reverse index Apple asks for
@@ -15,7 +15,7 @@ const safe = (s: string) => s.replace(/[^A-Za-z0-9_.:-]/g, "");
 
 async function add(path: string) {
   if (!live()) return void mem.add(path);
-  await put(path, "", { access: "public", addRandomSuffix: false, allowOverwrite: true, contentType: "text/plain" });
+  await put(path, "1", { access: "public", addRandomSuffix: false, allowOverwrite: true, contentType: "text/plain" });
 }
 async function paths(prefix: string): Promise<string[]> {
   if (!live()) return [...mem].filter((p) => p.startsWith(prefix));
